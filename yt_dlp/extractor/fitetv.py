@@ -147,16 +147,17 @@ class FiteTVChannelIE(FiteTVBase):
     _VALID_URL = r'https?://(?:www\.)?trillertv\.com/channel/(?P<id>[^/]+)/?$'
 
     def _fetch_page(self, url, channel_title, page):
-        page *= 50
+        offset = page * 50
+        page += 1
         params = {
             'a': 's',
             'l': self._SESSION,
             'q': f'channel: {channel_title}',
-            'z': str(page)
+            'z': str(offset)
         }
         channel_meta = self._download_json(
             self._get_api_url(params), channel_title,
-            note='Downloading channel info', errnote='Unable to download channel info',
+            note=f'Downloading page {page}', errnote='Unable to download channel info',
             headers={
                 'User-Agent': self._USER_AGENT
             })
