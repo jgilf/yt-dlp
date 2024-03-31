@@ -747,6 +747,10 @@ from .hellporno import HellPornoIE
 from .hgtv import HGTVComShowIE
 from .hketv import HKETVIE
 from .hidive import HiDiveIE
+from .highspotstv import (
+    HighspotsTVIE,
+    HighspotsTVSeasonIE
+)
 from .historicfilms import HistoricFilmsIE
 from .hitrecord import HitRecordIE
 from .hollywoodreporter import (
