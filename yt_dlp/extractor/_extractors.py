@@ -2198,6 +2198,10 @@ from .vgtv import (
     VGTVIE,
 )
 from .vh1 import VH1IE
+from .vhx import (
+    VHXIE,
+    VHXSeasonIE
+)
 from .vice import (
     ViceIE,
     ViceArticleIE,
