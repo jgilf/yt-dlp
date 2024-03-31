@@ -104,7 +104,7 @@ class VHXSeasonIE(InfoExtractor):
         page += 1
         webpage = self._download_webpage(
             f'{url}?page={page}', season_id, note=f'Downloading page {page}', expected_status={400})
-        yield from [self.url_result(item_url, DropoutIE) for item_url in traverse_obj(
+        yield from [self.url_result(item_url, VHXIE) for item_url in traverse_obj(
             get_elements_html_by_class('browse-item-link', webpage), (..., {extract_attributes}, 'href'))]
 
     def _real_extract(self, url):
