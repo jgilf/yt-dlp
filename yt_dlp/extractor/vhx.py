@@ -1,17 +1,11 @@
-import functools
-
 from .common import InfoExtractor
 from .vimeo import VHXEmbedIE
 from ..utils import (
     ExtractorError,
-    OnDemandPagedList,
     clean_html,
-    extract_attributes,
     get_element_by_class,
     get_element_by_id,
-    get_elements_html_by_class,
     int_or_none,
-    traverse_obj,
     unified_strdate,
     urlencode_postdata,
 )
@@ -96,22 +90,3 @@ class VHXIE(InfoExtractor):
         }
 
 
-class VHXSeasonIE(InfoExtractor):
-    _PAGE_SIZE = 24
-    _VALID_URL_TEMPL = r'https?://(?P<domain>%s)/(?P<id>[^\/$&?#]+)(?:/?$|/season:(?P<season>[0-9]+)/?$)'
-
-    def _fetch_page(self, url, season_id, page):
-        page += 1
-        webpage = self._download_webpage(
-            f'{url}?page={page}', season_id, note=f'Downloading page {page}', expected_status={400})
-        yield from [self.url_result(item_url, VHXIE) for item_url in traverse_obj(
-            get_elements_html_by_class('browse-item-link', webpage), (..., {extract_attributes}, 'href'))]
-
-    def _real_extract(self, url):
-        season_id = self._match_id(url)
-        season_num = self._match_valid_url(url).group('season') or 1
-        season_title = season_id.replace('-', ' ').title()
-
-        return self.playlist_result(
-            OnDemandPagedList(functools.partial(self._fetch_page, url, season_id), self._PAGE_SIZE),
-            f'{season_id}-season-{season_num}', f'{season_title} - Season {season_num}')
