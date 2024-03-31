@@ -2016,6 +2016,7 @@ from .tnaflix import (
     EMPFlixIE,
     MovieFapIE,
 )
+from .tnawrestling import TNAWrestlingIE
 from .toggle import (
     ToggleIE,
     MeWatchIE,
