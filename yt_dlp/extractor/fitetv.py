@@ -25,6 +25,7 @@ class FiteTVBase(InfoExtractor):
     _KEY = hashlib.md5(b'iM3diaShar3P4SSw0rD').digest()
     _API_BASE_URL = 'https://ims-lbs-us-east.fite.tv/fite'
     _USER_AGENT = 'Flipps/20/16/8.1.3'
+    _SESSION = None
 
     @staticmethod
     def _format_params(params):
